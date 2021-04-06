@@ -110,7 +110,7 @@ func buildFuncData(data string, tmpls []*TemplatedFunc) ([]string, error) {
 				for idx, line := range lines {
 					line = strings.TrimSpace(line)
 
-					if line == match /*|| IsMatchingGenericCall(line, parsed)*/ {
+					if IsMatchingGenericCall(line, parsed) || match == line {
 						lines[idx] = strings.ReplaceAll(lines[idx], parsed.LinkedTemplate.Name, newName)
 						lines[idx] = ReplaceGenericCalls(lines[idx])
 					}

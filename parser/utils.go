@@ -33,19 +33,34 @@ func IsMatchingGenericCall(compare string, caller *Caller) bool {
 		return false
 	}
 
-	for _, arg := range caller.TemplateReplacementArgs {
-		lineArg := strings.TrimSpace(lineArgs[arg.Position])
-		argType := strings.TrimSpace(arg.Type)
+	var callerArgs []string
 
-		if lineArg == argType {
-			return true
-		}
+	for _, arg := range caller.TemplateReplacementArgs {
+		callerArgs = append(callerArgs, arg.Type)
 	}
 
-	return false
+	return areSlicesEqual(lineArgs, callerArgs)
 }
 
 func ReplaceGenericCalls(line string) string {
 	replacer := fmt.Sprintf("<%s>", strings.Split(strings.Split(line, strings.TrimSpace("<"))[1], ">")[0])
 	return strings.ReplaceAll(line, replacer, "")
 } 
+
+func areSlicesEqual(sl0, sl1 []string) bool {
+	if (sl0 == nil) != (sl1 == nil) {
+		return false
+	}
+
+	if len(sl0) != len(sl1) {
+		return false
+	}
+
+	for i := range sl0 {
+		if sl0[i] != sl1[i] {
+			return false
+		}
+	}
+
+	return true
+}
