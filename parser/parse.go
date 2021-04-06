@@ -22,7 +22,6 @@ func Parse(inputFile, outputFile string) error {
 			return err
 		}
 
-
 		for _, f := range files {
 			Parse(fmt.Sprintf("%s/%s", inputFile, f.Name()), fmt.Sprintf("%s/%s/%s%s", inputFile, outputFile, f.Name(), ".go"))
 		}
@@ -81,24 +80,24 @@ func buildFuncData(data string, tmpls []*TemplatedFunc) ([]string, error) {
 						for i, call := range funcCallArgDefinitions {
 							caller.TemplateReplacementArgs = append(caller.TemplateReplacementArgs, &FuncArg{
 								Position: i,
-								Name: &call,
-								Type: funcCallTypeDefinitions[i],
+								Name:     &call,
+								Type:     funcCallTypeDefinitions[i],
 							})
 						}
 					}
 				}
 			}
 		}
-		
+
 		return &caller, nil
 	}
 
 	var callers []*Caller
 	lines := strings.Split(strings.TrimSpace(data), "\n")
-	
+
 	if matching := pattern.MatchString(data); matching {
 		matches := pattern.FindAllString(data, -1)
-		if (len(matches) > 0) {
+		if len(matches) > 0 {
 			for _, match := range matches {
 				parsed, err := parseCaller(match)
 				if err != nil {
@@ -110,7 +109,7 @@ func buildFuncData(data string, tmpls []*TemplatedFunc) ([]string, error) {
 
 				for idx, line := range lines {
 					line = strings.TrimSpace(line)
-				
+
 					if line == match /*|| IsMatchingGenericCall(line, parsed)*/ {
 						lines[idx] = strings.ReplaceAll(lines[idx], parsed.LinkedTemplate.Name, newName)
 						lines[idx] = ReplaceGenericCalls(lines[idx])
@@ -177,7 +176,7 @@ func buildFuncData(data string, tmpls []*TemplatedFunc) ([]string, error) {
 			return nil, err
 		}
 	}
-	
+
 	return lines, nil
 }
 
@@ -203,7 +202,7 @@ func parseTemplates(data []byte) ([]*TemplatedFunc, string, error) {
 					tmplArg = strings.TrimSpace(strings.ReplaceAll(tmplArg, "type", ""))
 					tmpl.TemplateArgs = append(tmpl.TemplateArgs, &TemplateArg{
 						Position: i,
-						Name: strings.TrimSpace(tmplArg),
+						Name:     strings.TrimSpace(tmplArg),
 					})
 				}
 
@@ -223,8 +222,8 @@ func parseTemplates(data []byte) ([]*TemplatedFunc, string, error) {
 
 						if tmplArg.Name == tmplType {
 							tmpl.FuncArgs = append(tmpl.FuncArgs, &FuncArg{
-								Name: &tmplName,
-								Type: tmplType,
+								Name:     &tmplName,
+								Type:     tmplType,
 								Position: tmplArg.Position,
 							})
 						}
@@ -279,10 +278,10 @@ func parseTemplates(data []byte) ([]*TemplatedFunc, string, error) {
 						},
 						Finally: func() {
 							var body []string
-							bodyIdx := idx+2
+							bodyIdx := idx + 2
 
 							for {
-								if (bodyIdx + 1 >= len(lines)) {
+								if bodyIdx+1 >= len(lines) {
 									break
 								}
 
@@ -302,7 +301,7 @@ func parseTemplates(data []byte) ([]*TemplatedFunc, string, error) {
 
 	if matching := pattern.MatchString(str); matching {
 		matches := pattern.FindAllString(str, -1)
-		if (len(matches) > 0) {
+		if len(matches) > 0 {
 			for _, match := range matches {
 				template, err := parseTemplateFunc(match)
 				if err != nil {

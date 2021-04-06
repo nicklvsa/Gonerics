@@ -50,6 +50,33 @@
   "template_args": [
    {
     "position": 0,
+    "name": "A"
+   },
+   {
+    "position": 1,
+    "name": "B"
+   }
+  ],
+  "return_args": null,
+  "func_args": [
+   {
+    "position": 0,
+    "name": "arg0",
+    "type": "A"
+   },
+   {
+    "position": 1,
+    "name": "arg1",
+    "type": "B"
+   }
+  ],
+  "name": "something",
+  "body": "\tfmt.Printf(\"%+v\\n\", arg1.Name)\r"
+ },
+ {
+  "template_args": [
+   {
+    "position": 0,
     "name": "N"
    },
    {

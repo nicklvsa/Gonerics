@@ -4,12 +4,22 @@ import (
 	"fmt"
 )
 
+type MyStruct struct {
+	Name string
+	Age int
+}
+
 @template(type T, type U, type X)
 func example(input T, another U, yo X) (a X, b T) {
 	fmt.Println(input)
 	fmt.Println(another)
 
 	return yo, input
+}
+
+@template(type A, type B)
+func something(arg0 A, arg1 B) {
+	fmt.Printf("%+v\n", arg1.Name)
 }
 
 @template(type N, type M)
@@ -20,6 +30,13 @@ func cool(num N, age N) (M, N) {
 func main() {
 	test()
 	cool<int, string>(15, 19)
+
+	my := MyStruct{
+		Name: "Bob",
+		Age: 30,
+	}
+
+	something<string, *MyStruct>("hello world", &my)
 }
 
 func test() {

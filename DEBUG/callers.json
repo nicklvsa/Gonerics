@@ -50,7 +50,49 @@
    "name": "cool",
    "body": "\treturn \"hello world\", age\r"
   },
-  "generator": "c1lqbsvcsae5jh128gq0"
+  "generator": "c1lseh7bm9vl11ce6q5g"
+ },
+ {
+  "func_args": [
+   {
+    "position": 0,
+    "name": " \u0026my",
+    "type": "string"
+   },
+   {
+    "position": 1,
+    "name": " \u0026my",
+    "type": " *MyStruct"
+   }
+  ],
+  "linked_template": {
+   "template_args": [
+    {
+     "position": 0,
+     "name": "A"
+    },
+    {
+     "position": 1,
+     "name": "B"
+    }
+   ],
+   "return_args": null,
+   "func_args": [
+    {
+     "position": 0,
+     "name": "arg0",
+     "type": "A"
+    },
+    {
+     "position": 1,
+     "name": "arg1",
+     "type": "B"
+    }
+   ],
+   "name": "something",
+   "body": "\tfmt.Printf(\"%+v\\n\", arg1.Name)\r"
+  },
+  "generator": "c1lseh7bm9vl11ce6q60"
  },
  {
   "func_args": [
@@ -117,7 +159,7 @@
    "name": "example",
    "body": "\tfmt.Println(input)\r\n\tfmt.Println(another)\r\n\r\n\treturn yo, input\r"
   },
-  "generator": "c1lqbsvcsae5jh128gqg"
+  "generator": "c1lseh7bm9vl11ce6q6g"
  },
  {
   "func_args": [
@@ -184,6 +226,6 @@
    "name": "example",
    "body": "\tfmt.Println(input)\r\n\tfmt.Println(another)\r\n\r\n\treturn yo, input\r"
   },
-  "generator": "c1lqbsvcsae5jh128gr0"
+  "generator": "c1lseh7bm9vl11ce6q70"
  }
 ]
