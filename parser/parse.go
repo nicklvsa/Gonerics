@@ -164,7 +164,7 @@ func buildFuncData(data string, tmpls []*TemplatedFunc) ([]string, error) {
 			return nil, err
 		}
 
-		if err := writeJSON("examples/DEBUG/templates.json", templatesOutput); err != nil {
+		if err := writeJSON("DEBUG/templates.json", templatesOutput); err != nil {
 			return nil, err
 		}
 
@@ -173,20 +173,11 @@ func buildFuncData(data string, tmpls []*TemplatedFunc) ([]string, error) {
 			return nil, err
 		}
 
-		if err := writeJSON("examples/DEBUG/callers.json", callersOutput); err != nil {
+		if err := writeJSON("DEBUG/callers.json", callersOutput); err != nil {
 			return nil, err
 		}
 	}
-
-	for idx := range lines {
-		empty, err := regexp.Compile(`/^\s*$\n|\r/g`)
-		if err != nil {
-			return nil, err
-		}
-
-		lines[idx] = empty.ReplaceAllString(lines[idx], "")
-	}
-
+	
 	return lines, nil
 }
 

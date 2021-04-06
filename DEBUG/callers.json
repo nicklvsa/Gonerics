@@ -1,0 +1,189 @@
+[
+ {
+  "func_args": [
+   {
+    "position": 0,
+    "name": " 19",
+    "type": "int"
+   },
+   {
+    "position": 1,
+    "name": " 19",
+    "type": " string"
+   }
+  ],
+  "linked_template": {
+   "template_args": [
+    {
+     "position": 0,
+     "name": "N"
+    },
+    {
+     "position": 1,
+     "name": "M"
+    }
+   ],
+   "return_args": [
+    {
+     "position": 1,
+     "name": null,
+     "type": "M"
+    },
+    {
+     "position": 0,
+     "name": null,
+     "type": "N"
+    }
+   ],
+   "func_args": [
+    {
+     "position": 0,
+     "name": "num",
+     "type": "N"
+    },
+    {
+     "position": 0,
+     "name": "age",
+     "type": "N"
+    }
+   ],
+   "name": "cool",
+   "body": "\treturn \"hello world\", age\r"
+  },
+  "generator": "c1lqbsvcsae5jh128gq0"
+ },
+ {
+  "func_args": [
+   {
+    "position": 0,
+    "name": " nil",
+    "type": "string"
+   },
+   {
+    "position": 1,
+    "name": " nil",
+    "type": " error"
+   },
+   {
+    "position": 2,
+    "name": " nil",
+    "type": " *string"
+   }
+  ],
+  "linked_template": {
+   "template_args": [
+    {
+     "position": 0,
+     "name": "T"
+    },
+    {
+     "position": 1,
+     "name": "U"
+    },
+    {
+     "position": 2,
+     "name": "X"
+    }
+   ],
+   "return_args": [
+    {
+     "position": 2,
+     "name": "a",
+     "type": "X"
+    },
+    {
+     "position": 0,
+     "name": "b",
+     "type": "T"
+    }
+   ],
+   "func_args": [
+    {
+     "position": 0,
+     "name": "input",
+     "type": "T"
+    },
+    {
+     "position": 1,
+     "name": "another",
+     "type": "U"
+    },
+    {
+     "position": 2,
+     "name": "yo",
+     "type": "X"
+    }
+   ],
+   "name": "example",
+   "body": "\tfmt.Println(input)\r\n\tfmt.Println(another)\r\n\r\n\treturn yo, input\r"
+  },
+  "generator": "c1lqbsvcsae5jh128gqg"
+ },
+ {
+  "func_args": [
+   {
+    "position": 0,
+    "name": " nil",
+    "type": "string"
+   },
+   {
+    "position": 1,
+    "name": " nil",
+    "type": " error"
+   },
+   {
+    "position": 2,
+    "name": " nil",
+    "type": " *string"
+   }
+  ],
+  "linked_template": {
+   "template_args": [
+    {
+     "position": 0,
+     "name": "T"
+    },
+    {
+     "position": 1,
+     "name": "U"
+    },
+    {
+     "position": 2,
+     "name": "X"
+    }
+   ],
+   "return_args": [
+    {
+     "position": 2,
+     "name": "a",
+     "type": "X"
+    },
+    {
+     "position": 0,
+     "name": "b",
+     "type": "T"
+    }
+   ],
+   "func_args": [
+    {
+     "position": 0,
+     "name": "input",
+     "type": "T"
+    },
+    {
+     "position": 1,
+     "name": "another",
+     "type": "U"
+    },
+    {
+     "position": 2,
+     "name": "yo",
+     "type": "X"
+    }
+   ],
+   "name": "example",
+   "body": "\tfmt.Println(input)\r\n\tfmt.Println(another)\r\n\r\n\treturn yo, input\r"
+  },
+  "generator": "c1lqbsvcsae5jh128gr0"
+ }
+]
