@@ -1,0 +1,28 @@
+package main
+
+import (
+	"fmt"
+)
+
+@template(type T, type U, type X)
+func example(input T, another U, yo X) (a X, b T) {
+	fmt.Println(input)
+	fmt.Println(another)
+
+	return yo, input
+}
+
+@template(type N, type M)
+func cool(num N, age N) (M, N) {
+	return "hello world", age
+}
+
+func main() {
+	test()
+	cool<int, string>(15, 19)
+}
+
+func test() {
+	example<string, error, *string>("yo", nil, nil)
+	example<string, error, *string>("hello", nil, nil)
+}

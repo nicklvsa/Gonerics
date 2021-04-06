@@ -1,0 +1,11 @@
+package main
+
+@template(type N, type M)
+func cool(num N, age N) (M, N) {
+	return "hello world", age
+}
+
+func test1() {
+    cool<float64, string>(1.25, 2.5)
+}
+
