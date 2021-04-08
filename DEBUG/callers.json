@@ -50,7 +50,7 @@
    "name": "cool",
    "body": "\treturn \"hello world\", age\r"
   },
-  "generator": "c1mehfncsae4pv12p6ng"
+  "generator": "c1mhkdnbm9vqdki46b4g"
  },
  {
   "func_args": [
@@ -92,7 +92,7 @@
    "name": "something",
    "body": "\tfmt.Printf(\"%+v\\n\", arg1.Name)\r"
   },
-  "generator": "c1mehfncsae4pv12p6o0"
+  "generator": "c1mhkdnbm9vqdki46b50"
  },
  {
   "func_args": [
@@ -159,7 +159,7 @@
    "name": "example",
    "body": "\tfmt.Println(input)\r\n\tfmt.Println(another)\r\n\r\n\treturn yo, input\r"
   },
-  "generator": "c1mehfncsae4pv12p6og"
+  "generator": "c1mhkdnbm9vqdki46b5g"
  },
  {
   "func_args": [
@@ -226,6 +226,6 @@
    "name": "example",
    "body": "\tfmt.Println(input)\r\n\tfmt.Println(another)\r\n\r\n\treturn yo, input\r"
   },
-  "generator": "c1mehfncsae4pv12p6p0"
+  "generator": "c1mhkdnbm9vqdki46b60"
  }
 ]

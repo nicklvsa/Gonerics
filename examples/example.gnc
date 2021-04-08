@@ -9,6 +9,12 @@ type MyStruct struct {
 	Age int
 }
 
+//TODO: support in the future
+// @template(type T, type U, type X)
+// func (m MyStruct) GetName() string {
+// 	return m.Name
+// }
+
 @template(type T, type U, type X)
 func example(input T, another U, yo X) (a X, b T) {
 	fmt.Println(input)
