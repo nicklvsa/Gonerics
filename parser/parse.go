@@ -78,11 +78,18 @@ func buildFuncData(data string, tmpls []*TemplatedFunc) ([]string, error) {
 						funcCallArgDefinitions := strings.Split(funcCallArgs, ",")
 
 						for i, call := range funcCallArgDefinitions {
-							caller.TemplateReplacementArgs = append(caller.TemplateReplacementArgs, &FuncArg{
+							funcArg := FuncArg{
 								Position: i,
 								Name:     &call,
-								Type:     funcCallTypeDefinitions[i],
-							})
+							}
+
+							if len(funcCallTypeDefinitions) == 1 {
+								funcArg.Type = funcCallTypeDefinitions[0]
+							} else {
+								funcArg.Type = funcCallTypeDefinitions[i]
+							}
+
+							caller.TemplateReplacementArgs = append(caller.TemplateReplacementArgs, &funcArg)
 						}
 					}
 				}
@@ -109,7 +116,6 @@ func buildFuncData(data string, tmpls []*TemplatedFunc) ([]string, error) {
 
 				for idx, line := range lines {
 					line = strings.TrimSpace(line)
-
 					if IsMatchingGenericCall(line, parsed) || match == line {
 						lines[idx] = strings.ReplaceAll(lines[idx], parsed.LinkedTemplate.Name, newName)
 						lines[idx] = ReplaceGenericCalls(lines[idx])

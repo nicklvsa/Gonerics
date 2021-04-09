@@ -3,112 +3,29 @@
   "template_args": [
    {
     "position": 0,
-    "name": "T"
-   },
-   {
-    "position": 1,
-    "name": "U"
-   },
-   {
-    "position": 2,
-    "name": "X"
+    "name": "A"
    }
   ],
   "return_args": [
    {
-    "position": 2,
-    "name": "a",
-    "type": "X"
-   },
-   {
     "position": 0,
-    "name": "b",
-    "type": "T"
+    "name": null,
+    "type": "A"
    }
   ],
   "func_args": [
    {
     "position": 0,
-    "name": "input",
-    "type": "T"
-   },
-   {
-    "position": 1,
-    "name": "another",
-    "type": "U"
-   },
-   {
-    "position": 2,
-    "name": "yo",
-    "type": "X"
-   }
-  ],
-  "name": "example",
-  "body": "\tfmt.Println(input)\r\n\tfmt.Println(another)\r\n\r\n\treturn yo, input\r"
- },
- {
-  "template_args": [
-   {
-    "position": 0,
-    "name": "A"
-   },
-   {
-    "position": 1,
-    "name": "B"
-   }
-  ],
-  "return_args": null,
-  "func_args": [
-   {
-    "position": 0,
-    "name": "arg0",
+    "name": "x",
     "type": "A"
    },
    {
-    "position": 1,
-    "name": "arg1",
-    "type": "B"
+    "position": 0,
+    "name": "y",
+    "type": "A"
    }
   ],
-  "name": "something",
-  "body": "\tfmt.Printf(\"%+v\\n\", arg1.Name)\r"
- },
- {
-  "template_args": [
-   {
-    "position": 0,
-    "name": "N"
-   },
-   {
-    "position": 1,
-    "name": "M"
-   }
-  ],
-  "return_args": [
-   {
-    "position": 1,
-    "name": null,
-    "type": "M"
-   },
-   {
-    "position": 0,
-    "name": null,
-    "type": "N"
-   }
-  ],
-  "func_args": [
-   {
-    "position": 0,
-    "name": "num",
-    "type": "N"
-   },
-   {
-    "position": 0,
-    "name": "age",
-    "type": "N"
-   }
-  ],
-  "name": "cool",
-  "body": "\treturn \"hello world\", age\r"
+  "name": "myMax",
+  "body": "\tif x \u003e y {\n\t\treturn x\n\t}\n\n\treturn y"
  }
 ]
