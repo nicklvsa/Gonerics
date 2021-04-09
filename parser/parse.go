@@ -314,12 +314,7 @@ func parseTemplates(data []byte) ([]*TemplatedFunc, string, error) {
 									}
 								}
 
-								if tmpl.DoesTemplateArgExist(argType.Type) {
-									tmpl.ReturnArgs = append(tmpl.ReturnArgs, &argType)
-								} else {
-									argType.IsBuiltIn = true
-									tmpl.ReturnArgs = append(tmpl.ReturnArgs, &argType)
-								}
+								tmpl.ReturnArgs = append(tmpl.ReturnArgs, &argType)
 							}
 						},
 						Catch: func(e Exception) {

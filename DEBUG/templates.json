@@ -3,130 +3,64 @@
   "template_args": [
    {
     "position": 0,
-    "name": "T"
-   },
-   {
-    "position": 1,
-    "name": "U"
-   },
-   {
-    "position": 2,
-    "name": "X"
-   }
-  ],
-  "return_args": [
-   {
-    "position": 2,
-    "name": "a",
-    "type": "X",
-    "is_built_in": false
-   },
-   {
-    "position": 0,
-    "name": "b",
-    "type": "T",
-    "is_built_in": false
-   }
-  ],
-  "func_args": [
-   {
-    "position": 0,
-    "name": "input",
-    "type": "T",
-    "is_built_in": false
-   },
-   {
-    "position": 1,
-    "name": "another",
-    "type": "U",
-    "is_built_in": false
-   },
-   {
-    "position": 2,
-    "name": "yo",
-    "type": "X",
-    "is_built_in": false
-   }
-  ],
-  "name": "example",
-  "body": "\tfmt.Println(input)\r\n\tfmt.Println(another)\r\n\r\n\treturn yo, input\r"
- },
- {
-  "template_args": [
-   {
-    "position": 0,
-    "name": "A"
-   },
-   {
-    "position": 1,
-    "name": "B"
+    "name": "Something"
    }
   ],
   "return_args": [
    {
     "position": 0,
     "name": null,
-    "type": "",
+    "type": "int",
     "is_built_in": true
    }
   ],
   "func_args": [
    {
     "position": 0,
-    "name": "arg0",
-    "type": "A",
-    "is_built_in": false
+    "name": "size",
+    "type": "int",
+    "is_built_in": true
    },
    {
-    "position": 1,
-    "name": "arg1",
-    "type": "B",
+    "position": 0,
+    "name": "data",
+    "type": "Something",
     "is_built_in": false
    }
   ],
-  "name": "something",
-  "body": "\tfmt.Printf(\"%+v\\n\", arg1.Name)\r"
+  "name": "Printer",
+  "body": "\tfmt.Printf(\"%+v\\n\", data)\n\n\treturn 1"
  },
  {
   "template_args": [
    {
     "position": 0,
-    "name": "N"
-   },
-   {
-    "position": 1,
-    "name": "M"
+    "name": "A"
    }
   ],
   "return_args": [
    {
-    "position": 1,
-    "name": null,
-    "type": "M",
-    "is_built_in": false
-   },
-   {
     "position": 0,
     "name": null,
-    "type": "N",
+    "type": "A",
     "is_built_in": false
    }
   ],
   "func_args": [
    {
     "position": 0,
-    "name": "num",
-    "type": "N",
+    "name": "x",
+    "type": "A",
     "is_built_in": false
    },
    {
     "position": 0,
-    "name": "age",
-    "type": "N",
+    "name": "y",
+    "type": "A",
     "is_built_in": false
    }
   ],
-  "name": "cool",
-  "body": "\treturn \"hello world\", age\r"
+  "name": "myMax",
+  "body": "\tif x \u003e y {\n\t\treturn x\n\t}\n\n\treturn y"
  }
 ]
