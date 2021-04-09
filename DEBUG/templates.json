@@ -4,6 +4,39 @@
    {
     "position": 0,
     "name": "A"
+   },
+   {
+    "position": 1,
+    "name": "B"
+   }
+  ],
+  "return_args": [
+   {
+    "position": 1,
+    "name": null,
+    "type": "B"
+   }
+  ],
+  "func_args": [
+   {
+    "position": 0,
+    "name": "number",
+    "type": "A"
+   },
+   {
+    "position": 1,
+    "name": "st",
+    "type": "B"
+   }
+  ],
+  "name": "appendToStruct",
+  "body": "\tst.Name = fmt.Sprintf(\"%s %+v\", st.Name, number)\n\treturn st"
+ },
+ {
+  "template_args": [
+   {
+    "position": 0,
+    "name": "A"
    }
   ],
   "return_args": [

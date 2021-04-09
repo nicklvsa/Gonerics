@@ -41,7 +41,7 @@
    "name": "myMax",
    "body": "\tif x \u003e y {\n\t\treturn x\n\t}\n\n\treturn y"
   },
-  "generator": "c1ns7o7bm9vlv77rje6g"
+  "generator": "c1oc02fcsae2qa0vpmsg"
  },
  {
   "func_args": [
@@ -85,6 +85,54 @@
    "name": "myMax",
    "body": "\tif x \u003e y {\n\t\treturn x\n\t}\n\n\treturn y"
   },
-  "generator": "c1ns7o7bm9vlv77rje70"
+  "generator": "c1oc02fcsae2qa0vpmt0"
+ },
+ {
+  "func_args": [
+   {
+    "position": 0,
+    "name": " \u0026st1",
+    "type": "int64"
+   },
+   {
+    "position": 1,
+    "name": " \u0026st1",
+    "type": " *Struct1"
+   }
+  ],
+  "linked_template": {
+   "template_args": [
+    {
+     "position": 0,
+     "name": "A"
+    },
+    {
+     "position": 1,
+     "name": "B"
+    }
+   ],
+   "return_args": [
+    {
+     "position": 1,
+     "name": null,
+     "type": "B"
+    }
+   ],
+   "func_args": [
+    {
+     "position": 0,
+     "name": "number",
+     "type": "A"
+    },
+    {
+     "position": 1,
+     "name": "st",
+     "type": "B"
+    }
+   ],
+   "name": "appendToStruct",
+   "body": "\tst.Name = fmt.Sprintf(\"%s %+v\", st.Name, number)\n\treturn st"
+  },
+  "generator": "c1oc02fcsae2qa0vpmtg"
  }
 ]

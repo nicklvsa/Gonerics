@@ -34,8 +34,8 @@ func IsMatchingGenericCall(compare string, caller *Caller) bool {
 
 	var callerArgs []string
 
-	for _, arg := range caller.LinkedTemplate.ReturnArgs {
-		callerArgs = append(callerArgs, caller.TemplateReplacementArgs[arg.Position].Type)
+	for _, arg := range caller.LinkedTemplate.TemplateArgs {
+		callerArgs = append(callerArgs, strings.TrimSpace(caller.TemplateReplacementArgs[arg.Position].Type))
 	}
 
 	return areSlicesEqual(lineArgs, callerArgs)
@@ -56,10 +56,10 @@ func areSlicesEqual(sl0, sl1 []string) bool {
 	}
 
 	for i := range sl0 {
-		if sl0[i] != sl1[i] {
-			return false
+		if strings.EqualFold(sl0[i], sl1[i]) {
+			return true
 		}
 	}
 
-	return true
+	return false
 }
