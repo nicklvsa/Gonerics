@@ -7,7 +7,6 @@ import (
 	"github.com/rs/xid"
 )
 
-
 func GetPointerToString(s string) *string {
 	return &s
 }
@@ -28,15 +27,15 @@ func IsMatchingGenericCall(compare string, caller *Caller) bool {
 		},
 		Finally: nil,
 	}.Run()
-	
+
 	if len(lineArgs) <= 0 || caller == nil {
 		return false
 	}
 
 	var callerArgs []string
 
-	for _, arg := range caller.TemplateReplacementArgs {
-		callerArgs = append(callerArgs, arg.Type)
+	for _, arg := range caller.LinkedTemplate.ReturnArgs {
+		callerArgs = append(callerArgs, caller.TemplateReplacementArgs[arg.Position].Type)
 	}
 
 	return areSlicesEqual(lineArgs, callerArgs)
@@ -45,7 +44,7 @@ func IsMatchingGenericCall(compare string, caller *Caller) bool {
 func ReplaceGenericCalls(line string) string {
 	replacer := fmt.Sprintf("<%s>", strings.Split(strings.Split(line, strings.TrimSpace("<"))[1], ">")[0])
 	return strings.ReplaceAll(line, replacer, "")
-} 
+}
 
 func areSlicesEqual(sl0, sl1 []string) bool {
 	if (sl0 == nil) != (sl1 == nil) {

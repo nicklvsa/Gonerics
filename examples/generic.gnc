@@ -1,0 +1,22 @@
+package main
+
+import (
+	"fmt"
+)
+
+@template(type A)
+func myMax(x A, y A) A {
+	if x > y {
+		return x
+	}
+
+	return y
+}
+
+func main() {
+	intVal := myMax<int>(10, 20)
+	floatVal := myMax<float64>(3.14, 5.64)
+
+	fmt.Printf("%+v\n", intVal)
+	fmt.Printf("%+v\n", floatVal)
+}

@@ -9,6 +9,21 @@ type MyStruct struct {
 	Age int
 }
 
+// TODO: support generic struct methods in the future
+// @template(type T, type U, type X)
+// func (m MyStruct) GetName() string {
+// 	return m.Name
+// }
+
+// TODO: support generic structs in the future
+// @template(type A, type B)
+// type Example struct {
+// 	Field0 string
+// 	Field1 int64
+// 	Field2 B
+// 	Field3 A
+// }
+
 @template(type T, type U, type X)
 func example(input T, another U, yo X) (a X, b T) {
 	fmt.Println(input)
