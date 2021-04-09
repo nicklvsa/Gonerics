@@ -5,10 +5,8 @@ import (
 )
 
 @template(type Something)
-func Printer(size int, data Something) int {
+func Printer(data Something) {
 	fmt.Printf("%+v\n", data)
-
-	return 1
 }
 
 @template(type A)
@@ -24,7 +22,7 @@ func main() {
 	intVal := myMax<int>(10, 20)
 	floatVal := myMax<float64>(3.14, 5.64)
 
-	Printer<string>(25, "Hello World")
+	Printer<string>("Hello World")
 
 	fmt.Printf("%+v\n", intVal)
 	fmt.Printf("%+v\n", floatVal)

@@ -10,17 +10,11 @@
    {
     "position": 0,
     "name": null,
-    "type": "int",
+    "type": "",
     "is_built_in": true
    }
   ],
   "func_args": [
-   {
-    "position": 0,
-    "name": "size",
-    "type": "int",
-    "is_built_in": true
-   },
    {
     "position": 0,
     "name": "data",
@@ -29,7 +23,7 @@
    }
   ],
   "name": "Printer",
-  "body": "\tfmt.Printf(\"%+v\\n\", data)\n\n\treturn 1"
+  "body": "\tfmt.Printf(\"%+v\\n\", data)"
  },
  {
   "template_args": [

@@ -52,6 +52,7 @@ func Parse(inputFile, outputFile string, execute bool) error {
 	if execute {
 		cmd := exec.Command("go", "run", outputFile)
 
+		cmd.Stdin = os.Stdin
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 

@@ -46,7 +46,7 @@
    "name": "myMax",
    "body": "\tif x \u003e y {\n\t\treturn x\n\t}\n\n\treturn y"
   },
-  "generator": "c1odt5vcsae42a0g5m5g"
+  "generator": "c1oduhncsae5lb3krlfg"
  },
  {
   "func_args": [
@@ -95,19 +95,13 @@
    "name": "myMax",
    "body": "\tif x \u003e y {\n\t\treturn x\n\t}\n\n\treturn y"
   },
-  "generator": "c1odt5vcsae42a0g5m60"
+  "generator": "c1oduhncsae5lb3krlg0"
  },
  {
   "func_args": [
    {
     "position": 0,
-    "name": " \"Hello World\"",
-    "type": "string",
-    "is_built_in": false
-   },
-   {
-    "position": 1,
-    "name": " \"Hello World\"",
+    "name": "\"Hello World\"",
     "type": "string",
     "is_built_in": false
    }
@@ -123,17 +117,11 @@
     {
      "position": 0,
      "name": null,
-     "type": "int",
+     "type": "",
      "is_built_in": true
     }
    ],
    "func_args": [
-    {
-     "position": 0,
-     "name": "size",
-     "type": "int",
-     "is_built_in": true
-    },
     {
      "position": 0,
      "name": "data",
@@ -142,8 +130,8 @@
     }
    ],
    "name": "Printer",
-   "body": "\tfmt.Printf(\"%+v\\n\", data)\n\n\treturn 1"
+   "body": "\tfmt.Printf(\"%+v\\n\", data)"
   },
-  "generator": "c1odt5vcsae42a0g5m6g"
+  "generator": "c1oduhncsae5lb3krlgg"
  }
 ]
