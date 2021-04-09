@@ -56,10 +56,10 @@ func areSlicesEqual(sl0, sl1 []string) bool {
 	}
 
 	for i := range sl0 {
-		if strings.EqualFold(sl0[i], sl1[i]) {
-			return true
+		if !strings.EqualFold(sl0[i], sl1[i]) {
+			return false
 		}
 	}
 
-	return false
+	return true
 }

@@ -125,7 +125,14 @@ func buildFuncData(data string, tmpls []*TemplatedFunc) ([]string, error) {
 				var params []string
 				for _, param := range parsed.LinkedTemplate.FuncArgs {
 					name := strings.TrimSpace(*param.Name)
-					namedType := strings.TrimSpace(parsed.TemplateReplacementArgs[param.Position].Type)
+
+					var namedType string
+					if param.IsBuiltIn {
+						namedType = strings.TrimSpace(param.Type)
+					} else {
+						namedType = strings.TrimSpace(parsed.TemplateReplacementArgs[param.Position].Type)
+					}
+
 					params = append(params, fmt.Sprintf("%s %s", name, namedType))
 				}
 
@@ -133,7 +140,12 @@ func buildFuncData(data string, tmpls []*TemplatedFunc) ([]string, error) {
 				for _, arg := range parsed.LinkedTemplate.ReturnArgs {
 					replace := "%s %s"
 
-					argType := strings.TrimSpace(parsed.TemplateReplacementArgs[arg.Position].Type)
+					var argType string
+					if arg.IsBuiltIn {
+						argType = strings.TrimSpace(arg.Type)
+					} else {
+						argType = strings.TrimSpace(parsed.TemplateReplacementArgs[arg.Position].Type)
+					}
 
 					var newArg string
 					if arg.Name != nil {
@@ -219,18 +231,28 @@ func parseTemplates(data []byte) ([]*TemplatedFunc, string, error) {
 					funcLineArgDefinitionString := strings.TrimSpace(strings.Split(strings.Split(funcLine, "(")[1], ")")[0])
 					funcLineArgDefinitions := strings.Split(funcLineArgDefinitionString, ",")
 
-					for _, funcArg := range funcLineArgDefinitions {
+					for i, funcArg := range funcLineArgDefinitions {
 						funcArg := strings.TrimSpace(funcArg)
 
 						tmplType := strings.TrimSpace(strings.Split(funcArg, " ")[1])
 						tmplName := strings.TrimSpace(strings.Split(funcArg, " ")[0])
-						tmplArg := tmpl.GetTemplateArgByType(tmplType)
+						isGeneric, tmplArg := tmpl.GetTemplateArgByType(tmplType)
 
-						if tmplArg.Name == tmplType {
+						if isGeneric && tmplArg != nil {
+							if tmplArg.Name == tmplType {
+								tmpl.FuncArgs = append(tmpl.FuncArgs, &FuncArg{
+									Name:     &tmplName,
+									Type:     tmplType,
+									Position: tmplArg.Position,
+									IsBuiltIn: false,
+								})
+							}
+						} else {
 							tmpl.FuncArgs = append(tmpl.FuncArgs, &FuncArg{
-								Name:     &tmplName,
-								Type:     tmplType,
-								Position: tmplArg.Position,
+								Name: &tmplName,
+								Type: tmplType,
+								Position: i,
+								IsBuiltIn: true,
 							})
 						}
 					}
@@ -241,40 +263,61 @@ func parseTemplates(data []byte) ([]*TemplatedFunc, string, error) {
 
 							var funcLineReturnArgDefinitions []string
 
-							if len(strings.TrimSpace(strings.ReplaceAll(funcLineReturnDefintionString, ")", ""))) == 1 {
+							if len(strings.Split(strings.TrimSpace(strings.ReplaceAll(funcLineReturnDefintionString, ")", "")), ",")) == 1 {
 								funcLineReturnArgDefinitions = []string{strings.TrimSpace(strings.ReplaceAll(funcLineReturnDefintionString, ")", ""))}
 							} else {
 								funcLineReturnDefinitionStringTrim := strings.TrimSpace(strings.Split(strings.Split(funcLineReturnDefintionString, "(")[1], ")")[0])
 								funcLineReturnArgDefinitions = strings.Split(funcLineReturnDefinitionStringTrim, ",")
 							}
 
-							for _, funcRetArg := range funcLineReturnArgDefinitions {
+							for i, funcRetArg := range funcLineReturnArgDefinitions {
 								funcRetArg = strings.TrimSpace(funcRetArg)
 								nameTypeEach := strings.Split(funcRetArg, " ")
 
-								argType := FuncArg{}
+								argType := FuncArg{
+									IsBuiltIn: false,
+								}
 
 								if len(nameTypeEach) == 2 {
-									argType.Type = strings.TrimSpace(nameTypeEach[1])
-									if len(nameTypeEach[0]) > 0 {
-										argType.Name = GetPointerToString(strings.TrimSpace(nameTypeEach[0]))
-									}
-
+									isBuiltIn := true
 									for _, funcArg := range tmpl.TemplateArgs {
 										if funcArg.Name == nameTypeEach[1] {
 											argType.Position = funcArg.Position
+											argType.Type = strings.TrimSpace(nameTypeEach[1])
+											if len(nameTypeEach[0]) > 0 {
+												argType.Name = GetPointerToString(strings.TrimSpace(nameTypeEach[0]))
+											}
+											isBuiltIn = false
 										}
 									}
+
+									if isBuiltIn {
+										argType.IsBuiltIn = true
+										argType.Type = nameTypeEach[1]
+										argType.Name = GetPointerToString(strings.TrimSpace(nameTypeEach[0]))
+										argType.Position = i
+									}
 								} else {
+									isBuiltIn := true
 									for _, funcArg := range tmpl.TemplateArgs {
 										if funcArg.Name == nameTypeEach[0] {
 											argType.Position = funcArg.Position
 											argType.Type = nameTypeEach[0]
+											isBuiltIn = false
 										}
+									}
+
+									if isBuiltIn {
+										argType.IsBuiltIn = true
+										argType.Type = nameTypeEach[0]
+										argType.Position = i
 									}
 								}
 
 								if tmpl.DoesTemplateArgExist(argType.Type) {
+									tmpl.ReturnArgs = append(tmpl.ReturnArgs, &argType)
+								} else {
+									argType.IsBuiltIn = true
 									tmpl.ReturnArgs = append(tmpl.ReturnArgs, &argType)
 								}
 							}

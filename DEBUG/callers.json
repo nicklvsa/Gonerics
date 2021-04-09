@@ -3,101 +3,74 @@
   "func_args": [
    {
     "position": 0,
-    "name": " 20",
-    "type": "int"
+    "name": " 19",
+    "type": "int",
+    "is_built_in": false
    },
    {
     "position": 1,
-    "name": " 20",
-    "type": "int"
+    "name": " 19",
+    "type": " string",
+    "is_built_in": false
    }
   ],
   "linked_template": {
    "template_args": [
     {
      "position": 0,
-     "name": "A"
+     "name": "N"
+    },
+    {
+     "position": 1,
+     "name": "M"
     }
    ],
    "return_args": [
     {
+     "position": 1,
+     "name": null,
+     "type": "M",
+     "is_built_in": false
+    },
+    {
      "position": 0,
      "name": null,
-     "type": "A"
+     "type": "N",
+     "is_built_in": false
     }
    ],
    "func_args": [
     {
      "position": 0,
-     "name": "x",
-     "type": "A"
+     "name": "num",
+     "type": "N",
+     "is_built_in": false
     },
     {
      "position": 0,
-     "name": "y",
-     "type": "A"
+     "name": "age",
+     "type": "N",
+     "is_built_in": false
     }
    ],
-   "name": "myMax",
-   "body": "\tif x \u003e y {\n\t\treturn x\n\t}\n\n\treturn y"
+   "name": "cool",
+   "body": "\treturn \"hello world\", age\r"
   },
-  "generator": "c1oc02fcsae2qa0vpmsg"
+  "generator": "c1odpbncsae4f55tk28g"
  },
  {
   "func_args": [
    {
     "position": 0,
-    "name": " 5.64",
-    "type": "float64"
+    "name": " \u0026my",
+    "type": "string",
+    "is_built_in": false
    },
    {
     "position": 1,
-    "name": " 5.64",
-    "type": "float64"
-   }
-  ],
-  "linked_template": {
-   "template_args": [
-    {
-     "position": 0,
-     "name": "A"
-    }
-   ],
-   "return_args": [
-    {
-     "position": 0,
-     "name": null,
-     "type": "A"
-    }
-   ],
-   "func_args": [
-    {
-     "position": 0,
-     "name": "x",
-     "type": "A"
-    },
-    {
-     "position": 0,
-     "name": "y",
-     "type": "A"
-    }
-   ],
-   "name": "myMax",
-   "body": "\tif x \u003e y {\n\t\treturn x\n\t}\n\n\treturn y"
-  },
-  "generator": "c1oc02fcsae2qa0vpmt0"
- },
- {
-  "func_args": [
-   {
-    "position": 0,
-    "name": " \u0026st1",
-    "type": "int64"
-   },
-   {
-    "position": 1,
-    "name": " \u0026st1",
-    "type": " *Struct1"
+    "name": " \u0026my",
+    "type": " *MyStruct",
+    "is_built_in": false
    }
   ],
   "linked_template": {
@@ -113,26 +86,179 @@
    ],
    "return_args": [
     {
-     "position": 1,
+     "position": 0,
      "name": null,
-     "type": "B"
+     "type": "",
+     "is_built_in": true
     }
    ],
    "func_args": [
     {
      "position": 0,
-     "name": "number",
-     "type": "A"
+     "name": "arg0",
+     "type": "A",
+     "is_built_in": false
     },
     {
      "position": 1,
-     "name": "st",
-     "type": "B"
+     "name": "arg1",
+     "type": "B",
+     "is_built_in": false
     }
    ],
-   "name": "appendToStruct",
-   "body": "\tst.Name = fmt.Sprintf(\"%s %+v\", st.Name, number)\n\treturn st"
+   "name": "something",
+   "body": "\tfmt.Printf(\"%+v\\n\", arg1.Name)\r"
   },
-  "generator": "c1oc02fcsae2qa0vpmtg"
+  "generator": "c1odpbncsae4f55tk290"
+ },
+ {
+  "func_args": [
+   {
+    "position": 0,
+    "name": " nil",
+    "type": "string",
+    "is_built_in": false
+   },
+   {
+    "position": 1,
+    "name": " nil",
+    "type": " error",
+    "is_built_in": false
+   },
+   {
+    "position": 2,
+    "name": " nil",
+    "type": " *string",
+    "is_built_in": false
+   }
+  ],
+  "linked_template": {
+   "template_args": [
+    {
+     "position": 0,
+     "name": "T"
+    },
+    {
+     "position": 1,
+     "name": "U"
+    },
+    {
+     "position": 2,
+     "name": "X"
+    }
+   ],
+   "return_args": [
+    {
+     "position": 2,
+     "name": "a",
+     "type": "X",
+     "is_built_in": false
+    },
+    {
+     "position": 0,
+     "name": "b",
+     "type": "T",
+     "is_built_in": false
+    }
+   ],
+   "func_args": [
+    {
+     "position": 0,
+     "name": "input",
+     "type": "T",
+     "is_built_in": false
+    },
+    {
+     "position": 1,
+     "name": "another",
+     "type": "U",
+     "is_built_in": false
+    },
+    {
+     "position": 2,
+     "name": "yo",
+     "type": "X",
+     "is_built_in": false
+    }
+   ],
+   "name": "example",
+   "body": "\tfmt.Println(input)\r\n\tfmt.Println(another)\r\n\r\n\treturn yo, input\r"
+  },
+  "generator": "c1odpbncsae4f55tk29g"
+ },
+ {
+  "func_args": [
+   {
+    "position": 0,
+    "name": " nil",
+    "type": "string",
+    "is_built_in": false
+   },
+   {
+    "position": 1,
+    "name": " nil",
+    "type": " error",
+    "is_built_in": false
+   },
+   {
+    "position": 2,
+    "name": " nil",
+    "type": " *string",
+    "is_built_in": false
+   }
+  ],
+  "linked_template": {
+   "template_args": [
+    {
+     "position": 0,
+     "name": "T"
+    },
+    {
+     "position": 1,
+     "name": "U"
+    },
+    {
+     "position": 2,
+     "name": "X"
+    }
+   ],
+   "return_args": [
+    {
+     "position": 2,
+     "name": "a",
+     "type": "X",
+     "is_built_in": false
+    },
+    {
+     "position": 0,
+     "name": "b",
+     "type": "T",
+     "is_built_in": false
+    }
+   ],
+   "func_args": [
+    {
+     "position": 0,
+     "name": "input",
+     "type": "T",
+     "is_built_in": false
+    },
+    {
+     "position": 1,
+     "name": "another",
+     "type": "U",
+     "is_built_in": false
+    },
+    {
+     "position": 2,
+     "name": "yo",
+     "type": "X",
+     "is_built_in": false
+    }
+   ],
+   "name": "example",
+   "body": "\tfmt.Println(input)\r\n\tfmt.Println(another)\r\n\r\n\treturn yo, input\r"
+  },
+  "generator": "c1odpbncsae4f55tk2a0"
  }
 ]

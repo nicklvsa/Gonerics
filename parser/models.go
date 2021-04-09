@@ -14,9 +14,10 @@ type TemplateArg struct {
 }
 
 type FuncArg struct {
-	Position int     `json:"position"`
-	Name     *string `json:"name"`
-	Type     string  `json:"type"`
+	Position  int     `json:"position"`
+	Name      *string `json:"name"`
+	Type      string  `json:"type"`
+	IsBuiltIn bool    `json:"is_built_in"`
 }
 
 type TemplatedFunc struct {
@@ -43,14 +44,14 @@ func (t *TemplatedFunc) GetTemplateArgAtPos(pos int) *TemplateArg {
 	return nil
 }
 
-func (t *TemplatedFunc) GetTemplateArgByType(argType string) *TemplateArg {
+func (t *TemplatedFunc) GetTemplateArgByType(argType string) (bool, *TemplateArg) {
 	for _, arg := range t.TemplateArgs {
 		if arg.Name == argType {
-			return arg
+			return true, arg
 		}
 	}
 
-	return nil
+	return false, nil
 }
 
 func (t *TemplatedFunc) DoesTemplateArgExist(input string) bool {
