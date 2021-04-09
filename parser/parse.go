@@ -6,11 +6,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"regexp"
 	"strings"
 )
 
-func Parse(inputFile, outputFile string) error {
+func Parse(inputFile, outputFile string, execute bool) error {
 	test, err := os.Stat(inputFile)
 	if err != nil {
 		return err
@@ -23,7 +24,7 @@ func Parse(inputFile, outputFile string) error {
 		}
 
 		for _, f := range files {
-			Parse(fmt.Sprintf("%s/%s", inputFile, f.Name()), fmt.Sprintf("%s/%s/%s%s", inputFile, outputFile, f.Name(), ".go"))
+			Parse(fmt.Sprintf("%s/%s", inputFile, f.Name()), fmt.Sprintf("%s/%s/%s%s", inputFile, outputFile, f.Name(), ".go"), execute)
 		}
 
 		return nil
@@ -46,6 +47,17 @@ func Parse(inputFile, outputFile string) error {
 
 	if err := writeFile(outputFile, out); err != nil {
 		return err
+	}
+
+	if execute {
+		cmd := exec.Command("go", "run", outputFile)
+
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+
+		if err := cmd.Run(); err != nil {
+			return err
+		}
 	}
 
 	return nil

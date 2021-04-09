@@ -46,7 +46,7 @@
    "name": "myMax",
    "body": "\tif x \u003e y {\n\t\treturn x\n\t}\n\n\treturn y"
   },
-  "generator": "c1odqcvcsae2d60tbigg"
+  "generator": "c1odt5vcsae42a0g5m5g"
  },
  {
   "func_args": [
@@ -95,7 +95,7 @@
    "name": "myMax",
    "body": "\tif x \u003e y {\n\t\treturn x\n\t}\n\n\treturn y"
   },
-  "generator": "c1odqcvcsae2d60tbih0"
+  "generator": "c1odt5vcsae42a0g5m60"
  },
  {
   "func_args": [
@@ -144,6 +144,6 @@
    "name": "Printer",
    "body": "\tfmt.Printf(\"%+v\\n\", data)\n\n\treturn 1"
   },
-  "generator": "c1odqcvcsae2d60tbihg"
+  "generator": "c1odt5vcsae42a0g5m6g"
  }
 ]
