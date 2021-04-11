@@ -35,12 +35,12 @@ func Parse(inputFile, outputFile string, execute bool) error {
 		return err
 	}
 
-	templates, cleaned, err := parseTemplates(input)
+	tmpls, cleaned, err := parseTemplates(input)
 	if err != nil {
 		return err
 	}
 
-	out, err := buildFuncData(cleaned, templates)
+	out, err := buildFuncData(cleaned, tmpls)
 	if err != nil {
 		return err
 	}
@@ -64,7 +64,7 @@ func Parse(inputFile, outputFile string, execute bool) error {
 	return nil
 }
 
-func buildFuncData(data string, tmpls []*TemplatedFunc) ([]string, error) {
+func buildFuncData(data string, tmpls *Templates) ([]string, error) {
 	pattern, err := regexp.Compile(CALLER_BODY)
 	if err != nil {
 		return nil, err
@@ -77,7 +77,7 @@ func buildFuncData(data string, tmpls []*TemplatedFunc) ([]string, error) {
 			Generator: NewGenerator(),
 		}
 
-		for _, tmpl := range tmpls {
+		for _, tmpl := range tmpls.Funcs {
 			if strings.HasPrefix(full, tmpl.Name) {
 				definedType := strings.TrimSpace(strings.Split(full, tmpl.Name)[1])
 				if strings.HasPrefix(definedType, "<") {
@@ -211,12 +211,23 @@ func buildFuncData(data string, tmpls []*TemplatedFunc) ([]string, error) {
 	return lines, nil
 }
 
-func parseTemplates(data []byte) ([]*TemplatedFunc, string, error) {
-	var templates []*TemplatedFunc
+func parseTemplates(data []byte) (*Templates, string, error) {
+	var funcTemplates []*TemplatedFunc
+	var structTemplates []*TemplatedStruct
 
 	str := string(data)
 
-	pattern, err := regexp.Compile(TEMPLATE_BODY)
+	curlyPattern, err := regexp.Compile(BETWEEN_CURLYS)
+	if err != nil {
+		return nil, str, err
+	}
+
+	funcPattern, err := regexp.Compile(TEMPLATE_BODY)
+	if err != nil {
+		return nil, str, err
+	}
+
+	structPattern, err := regexp.Compile(TEMPLATE_STRUCT)
 	if err != nil {
 		return nil, str, err
 	}
@@ -254,17 +265,17 @@ func parseTemplates(data []byte) ([]*TemplatedFunc, string, error) {
 						if isGeneric && tmplArg != nil {
 							if tmplArg.Name == tmplType {
 								tmpl.FuncArgs = append(tmpl.FuncArgs, &FuncArg{
-									Name:     &tmplName,
-									Type:     tmplType,
-									Position: tmplArg.Position,
+									Name:      &tmplName,
+									Type:      tmplType,
+									Position:  tmplArg.Position,
 									IsBuiltIn: false,
 								})
 							}
 						} else {
 							tmpl.FuncArgs = append(tmpl.FuncArgs, &FuncArg{
-								Name: &tmplName,
-								Type: tmplType,
-								Position: i,
+								Name:      &tmplName,
+								Type:      tmplType,
+								Position:  i,
 								IsBuiltIn: true,
 							})
 						}
@@ -356,8 +367,75 @@ func parseTemplates(data []byte) ([]*TemplatedFunc, string, error) {
 		return &tmpl, nil
 	}
 
-	if matching := pattern.MatchString(str); matching {
-		matches := pattern.FindAllString(str, -1)
+	parseTemplateStruct := func(full string) (*TemplatedStruct, error) {
+		tmpl := TemplatedStruct{}
+		lines := strings.Split(strings.TrimSpace(full), "\n")
+		for idx, line := range lines {
+			if strings.HasPrefix(line, "@template") {
+				templateLineArgDefinitionString := strings.TrimSpace(strings.Split(strings.Split(line, "(")[1], ")")[0])
+				templateLineArgDefinitions := strings.Split(templateLineArgDefinitionString, ",")
+
+				for i, tmplArg := range templateLineArgDefinitions {
+					tmplArg = strings.TrimSpace(strings.ReplaceAll(tmplArg, "type", ""))
+					tmpl.TemplateArgs = append(tmpl.TemplateArgs, &TemplateArg{
+						Position: i,
+						Name:     strings.TrimSpace(tmplArg),
+					})
+				}
+
+				peek := strings.TrimSpace(strings.ReplaceAll(lines[idx+1], "{", ""))
+				if strings.HasPrefix(peek, "type") && strings.HasSuffix(peek, "struct") {
+					structLine := lines[idx+1]
+					tmpl.Name = strings.TrimSpace(strings.Split(strings.Split(structLine, "type")[1], "struct")[0])
+
+					if matching := curlyPattern.MatchString(full); matching {
+						match := curlyPattern.FindString(str)
+						match = strings.TrimSpace(strings.ReplaceAll(strings.ReplaceAll(match, "{", ""), "}", ""))
+						if match != "" {
+							fieldArg := FieldArg{
+								IsBuiltIn: false,
+							}
+
+							fieldLineArgs := strings.Split(match, " ")
+							if len(fieldLineArgs) == 3 {
+								fieldArg.Name = strings.TrimSpace(fieldLineArgs[0])
+								fieldArg.Type = strings.TrimSpace(fieldLineArgs[1])
+								fieldArg.Tags = GetPointerToString(strings.TrimSpace(fieldLineArgs[2]))
+								fieldArg.Position = idx
+							} else {
+								fieldArg.Name = strings.TrimSpace(fieldLineArgs[0])
+								fieldArg.Type = strings.TrimSpace(fieldLineArgs[1])
+								fieldArg.Position = idx
+							}
+
+							tmpl.FieldArgs = append(tmpl.FieldArgs, &fieldArg)
+						}
+					}
+				}
+			}
+		}
+
+		return &tmpl, nil
+	}
+
+	if matching := structPattern.MatchString(str); matching {
+		matches := structPattern.FindAllString(str, -1)
+		if len(matches) > 0 {
+			for _, match := range matches {
+				template, err := parseTemplateStruct(match)
+				if err != nil {
+					return nil, str, err
+				}
+
+				str = structPattern.ReplaceAllLiteralString(str, "")
+
+				structTemplates = append(structTemplates, template)
+			}
+		}
+	}
+
+	if matching := funcPattern.MatchString(str); matching {
+		matches := funcPattern.FindAllString(str, -1)
 		if len(matches) > 0 {
 			for _, match := range matches {
 				template, err := parseTemplateFunc(match)
@@ -365,14 +443,17 @@ func parseTemplates(data []byte) ([]*TemplatedFunc, string, error) {
 					return nil, str, err
 				}
 
-				str = pattern.ReplaceAllLiteralString(str, "")
+				str = funcPattern.ReplaceAllLiteralString(str, "")
 
-				templates = append(templates, template)
+				funcTemplates = append(funcTemplates, template)
 			}
 		}
 	}
 
-	return templates, str, nil
+	return &Templates{
+		Funcs:   funcTemplates,
+		Structs: structTemplates,
+	}, str, nil
 }
 
 func readFile(filePath string) ([]byte, error) {

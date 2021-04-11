@@ -4,6 +4,13 @@ import (
 	"fmt"
 )
 
+@template(type T)
+type Example struct {
+	FirstName string
+	LastName string `json:"last_name"`
+	SomeObj T
+}
+
 @template(type Something)
 func Printer(data Something) {
 	fmt.Printf("%+v\n", data)
