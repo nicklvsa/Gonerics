@@ -20,6 +20,14 @@ type FuncArg struct {
 	IsBuiltIn bool    `json:"is_built_in"`
 }
 
+type FieldArg struct {
+	Position  int     `json:"position"`
+	Name      string  `json:"name"`
+	Type      string  `json:"type"`
+	Tags      *string `json:"tags"`
+	IsBuiltIn bool    `json:"is_built_in"`
+}
+
 type TemplatedFunc struct {
 	TemplateArgs []*TemplateArg `json:"template_args"`
 	ReturnArgs   []*FuncArg     `json:"return_args"`
@@ -28,10 +36,21 @@ type TemplatedFunc struct {
 	Body         string         `json:"body"`
 }
 
+type TemplatedStruct struct {
+	TemplateArgs []*TemplateArg `json:"template_args"`
+	FieldArgs    []*FieldArg    `json:"field_args"`
+	Name         string         `json:"name"`
+}
+
 type Caller struct {
 	TemplateReplacementArgs []*FuncArg     `json:"func_args"`
 	LinkedTemplate          *TemplatedFunc `json:"linked_template"`
 	Generator               string         `json:"generator"`
+}
+
+type Templates struct {
+	Funcs   []*TemplatedFunc
+	Structs []*TemplatedStruct
 }
 
 func (t *TemplatedFunc) GetTemplateArgAtPos(pos int) *TemplateArg {
