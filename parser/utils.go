@@ -75,8 +75,8 @@ func processStructField(idx int, field string, tmpl *TemplatedStruct, pattern *r
 	}
 
 	if matching := pattern.MatchString(field); matching {
-		offset := 0
 		tag := pattern.FindString(field)
+		offset := 0
 
 		if tag != "" {
 			field = field[:strings.Index(field, tag)]

@@ -7,7 +7,7 @@ import (
 @template(type T, type X)
 type Example struct {
 	Name string
-	Cool int `json:"cool" gorm:"type:numeric"`
+	Cool int `json:"cool"`
 	Another X `json:"another"`
 }
 
