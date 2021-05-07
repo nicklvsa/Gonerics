@@ -2,6 +2,7 @@ package parser
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 
 	"github.com/rs/xid"
@@ -62,4 +63,50 @@ func areSlicesEqual(sl0, sl1 []string) bool {
 	}
 
 	return true
+}
+
+func processStructField(idx int, field string, tmpl *TemplatedStruct, pattern *regexp.Regexp) (*FieldArg, error) {
+	if pattern == nil {
+		return nil, fmt.Errorf("provided field pattern was nil")
+	}
+
+	fieldArg := FieldArg{
+		IsBuiltIn: true,
+	}
+
+	if matching := pattern.MatchString(field); matching {
+		tag := pattern.FindString(field)
+		offset := 0
+
+		if tag != "" {
+			field = field[:strings.Index(field, tag)]
+			offset += 1
+		}
+
+		fieldLineArgs := strings.Split(strings.TrimSpace(field), " ")
+
+		if len(fieldLineArgs)+offset == 3 {
+			fieldArg.Name = strings.TrimSpace(fieldLineArgs[0])
+			fieldArg.Type = strings.TrimSpace(fieldLineArgs[1])
+			fieldArg.Tags = GetPointerToString(strings.TrimSpace(tag))
+			fieldArg.Position = idx
+		} else {
+			fieldArg.Name = strings.TrimSpace(fieldLineArgs[0])
+			fieldArg.Type = strings.TrimSpace(fieldLineArgs[1])
+			fieldArg.Position = idx
+		}
+	} else {
+		fieldLineArgs := strings.Split(strings.TrimSpace(field), " ")
+
+		fieldArg.Name = strings.TrimSpace(fieldLineArgs[0])
+		fieldArg.Type = strings.TrimSpace(fieldLineArgs[1])
+		fieldArg.Position = idx
+	}
+
+	isGeneric, tmplArg := tmpl.GetTemplateArgByType(fieldArg.Type)
+	if isGeneric && tmplArg != nil {
+		fieldArg.IsBuiltIn = false
+	}
+
+	return &fieldArg, nil
 }

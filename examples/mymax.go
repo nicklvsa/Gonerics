@@ -8,31 +8,24 @@ import (
 
 
 
-
-
 func main() {
-	intVal := myMax_gonerics_c1p2c97bm9vsor1rrpg0(10, 20)
-	floatVal := myMax_gonerics_c1p2c97bm9vsor1rrpgg(3.14, 5.64)
+	largestInt := myMax_gonerics_c2aar57bm9vh6gieasbg(20, 60)
+	fmt.Printf("%+v\n", largestInt)
 
-	Printer_gonerics_c1p2c97bm9vsor1rrph0("Hello World")
-
-	fmt.Printf("%+v\n", intVal)
-	fmt.Printf("%+v\n", floatVal)
+	largestFloat := myMax_gonerics_c2aar57bm9vh6gieasc0(3.14, 8.25)
+	fmt.Printf("%+v\n", largestFloat)
 }
-func myMax_gonerics_c1p2c97bm9vsor1rrpg0(x int,y int) (int) {
-							if x > y {
-		return x
+func myMax_gonerics_c2aar57bm9vh6gieasbg(num0 int,num1 int) (int) {
+							if num0 > num1 {
+		return num0
 	}
 
-	return y
+	return num1
 					}
-func myMax_gonerics_c1p2c97bm9vsor1rrpgg(x float64,y float64) (float64) {
-							if x > y {
-		return x
+func myMax_gonerics_c2aar57bm9vh6gieasc0(num0 float64,num1 float64) (float64) {
+							if num0 > num1 {
+		return num0
 	}
 
-	return y
-					}
-func Printer_gonerics_c1p2c97bm9vsor1rrph0(data string)  {
-							fmt.Printf("%+v\n", data)
+	return num1
 					}

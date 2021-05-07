@@ -49,8 +49,18 @@ type Caller struct {
 }
 
 type Templates struct {
-	Funcs   []*TemplatedFunc
-	Structs []*TemplatedStruct
+	Funcs   []*TemplatedFunc   `json:"funcs"`
+	Structs []*TemplatedStruct `json:"structs"`
+}
+
+func (s *TemplatedStruct) GetTemplateArgByType(argType string) (bool, *TemplateArg) {
+	for _, arg := range s.TemplateArgs {
+		if arg.Name == argType {
+			return true, arg
+		}
+	}
+
+	return false, nil
 }
 
 func (t *TemplatedFunc) GetTemplateArgAtPos(pos int) *TemplateArg {

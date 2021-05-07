@@ -3,13 +3,13 @@
   "func_args": [
    {
     "position": 0,
-    "name": " 20",
+    "name": " 60",
     "type": "int",
     "is_built_in": false
    },
    {
     "position": 1,
-    "name": " 20",
+    "name": " 60",
     "type": "int",
     "is_built_in": false
    }
@@ -18,47 +18,47 @@
    "template_args": [
     {
      "position": 0,
-     "name": "A"
+     "name": "T"
     }
    ],
    "return_args": [
     {
      "position": 0,
      "name": null,
-     "type": "A",
+     "type": "T",
      "is_built_in": false
     }
    ],
    "func_args": [
     {
      "position": 0,
-     "name": "x",
-     "type": "A",
+     "name": "num0",
+     "type": "T",
      "is_built_in": false
     },
     {
      "position": 0,
-     "name": "y",
-     "type": "A",
+     "name": "num1",
+     "type": "T",
      "is_built_in": false
     }
    ],
    "name": "myMax",
-   "body": "\tif x \u003e y {\n\t\treturn x\n\t}\n\n\treturn y"
+   "body": "\tif num0 \u003e num1 {\n\t\treturn num0\n\t}\n\n\treturn num1"
   },
-  "generator": "c1p2c97bm9vsor1rrpg0"
+  "generator": "c2aar57bm9vh6gieasbg"
  },
  {
   "func_args": [
    {
     "position": 0,
-    "name": " 5.64",
+    "name": " 8.25",
     "type": "float64",
     "is_built_in": false
    },
    {
     "position": 1,
-    "name": " 5.64",
+    "name": " 8.25",
     "type": "float64",
     "is_built_in": false
    }
@@ -67,71 +67,34 @@
    "template_args": [
     {
      "position": 0,
-     "name": "A"
+     "name": "T"
     }
    ],
    "return_args": [
     {
      "position": 0,
      "name": null,
-     "type": "A",
+     "type": "T",
      "is_built_in": false
     }
    ],
    "func_args": [
     {
      "position": 0,
-     "name": "x",
-     "type": "A",
+     "name": "num0",
+     "type": "T",
      "is_built_in": false
     },
     {
      "position": 0,
-     "name": "y",
-     "type": "A",
+     "name": "num1",
+     "type": "T",
      "is_built_in": false
     }
    ],
    "name": "myMax",
-   "body": "\tif x \u003e y {\n\t\treturn x\n\t}\n\n\treturn y"
+   "body": "\tif num0 \u003e num1 {\n\t\treturn num0\n\t}\n\n\treturn num1"
   },
-  "generator": "c1p2c97bm9vsor1rrpgg"
- },
- {
-  "func_args": [
-   {
-    "position": 0,
-    "name": "\"Hello World\"",
-    "type": "string",
-    "is_built_in": false
-   }
-  ],
-  "linked_template": {
-   "template_args": [
-    {
-     "position": 0,
-     "name": "Something"
-    }
-   ],
-   "return_args": [
-    {
-     "position": 0,
-     "name": null,
-     "type": "",
-     "is_built_in": true
-    }
-   ],
-   "func_args": [
-    {
-     "position": 0,
-     "name": "data",
-     "type": "Something",
-     "is_built_in": false
-    }
-   ],
-   "name": "Printer",
-   "body": "\tfmt.Printf(\"%+v\\n\", data)"
-  },
-  "generator": "c1p2c97bm9vsor1rrph0"
+  "generator": "c2aar57bm9vh6gieasc0"
  }
 ]
