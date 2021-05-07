@@ -64,7 +64,7 @@
      "position": 2,
      "name": "Another",
      "type": "X",
-     "tags": null,
+     "tags": "`json:\"another\"`",
      "is_built_in": false
     }
    ],

@@ -71,7 +71,7 @@ func processStructField(idx int, field string, tmpl *TemplatedStruct, pattern *r
 	}
 
 	fieldArg := FieldArg{
-		IsBuiltIn: false,
+		IsBuiltIn: true,
 	}
 
 	if matching := pattern.MatchString(field); matching {
@@ -104,8 +104,8 @@ func processStructField(idx int, field string, tmpl *TemplatedStruct, pattern *r
 	}
 
 	isGeneric, tmplArg := tmpl.GetTemplateArgByType(fieldArg.Type)
-	if !isGeneric || tmplArg == nil {
-		fieldArg.IsBuiltIn = true
+	if isGeneric && tmplArg != nil {
+		fieldArg.IsBuiltIn = false
 	}
 
 	return &fieldArg, nil

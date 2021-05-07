@@ -46,7 +46,7 @@
    "name": "myMax",
    "body": "\tif num0 \u003e num1 {\n\t\treturn num0\n\t}\n\n\treturn num1"
   },
-  "generator": "c2aann7bm9vgl40los00"
+  "generator": "c2aar57bm9vh6gieasbg"
  },
  {
   "func_args": [
@@ -95,6 +95,6 @@
    "name": "myMax",
    "body": "\tif num0 \u003e num1 {\n\t\treturn num0\n\t}\n\n\treturn num1"
   },
-  "generator": "c2aann7bm9vgl40los0g"
+  "generator": "c2aar57bm9vh6gieasc0"
  }
 ]
