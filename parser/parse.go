@@ -232,6 +232,11 @@ func parseTemplates(data []byte) (*Templates, string, error) {
 		return nil, str, err
 	}
 
+	structFieldPattern, err := regexp.Compile(STRUCT_FIELD)
+	if err != nil {
+		return nil, str, err
+	}
+
 	parseTemplateFunc := func(full string) (*TemplatedFunc, error) {
 		tmpl := TemplatedFunc{}
 		lines := strings.Split(strings.TrimSpace(full), "\n")
@@ -391,24 +396,18 @@ func parseTemplates(data []byte) (*Templates, string, error) {
 					if matching := curlyPattern.MatchString(full); matching {
 						match := curlyPattern.FindString(str)
 						match = strings.TrimSpace(strings.ReplaceAll(strings.ReplaceAll(match, "{", ""), "}", ""))
-						if match != "" {
-							fieldArg := FieldArg{
-								IsBuiltIn: false,
-							}
 
-							fieldLineArgs := strings.Split(match, " ")
-							if len(fieldLineArgs) == 3 {
-								fieldArg.Name = strings.TrimSpace(fieldLineArgs[0])
-								fieldArg.Type = strings.TrimSpace(fieldLineArgs[1])
-								fieldArg.Tags = GetPointerToString(strings.TrimSpace(fieldLineArgs[2]))
-								fieldArg.Position = idx
-							} else {
-								fieldArg.Name = strings.TrimSpace(fieldLineArgs[0])
-								fieldArg.Type = strings.TrimSpace(fieldLineArgs[1])
-								fieldArg.Position = idx
-							}
+						each := strings.Split(match, "\n")
+						for i, def := range each {
+							if def != "" {
+								fieldArg, err := processStructField(i, def, &tmpl, structFieldPattern)
+								if err != nil {
+									fmt.Printf("could not process field arg from line %s. Error: %s\n", def, err.Error())
+									continue
+								}
 
-							tmpl.FieldArgs = append(tmpl.FieldArgs, &fieldArg)
+								tmpl.FieldArgs = append(tmpl.FieldArgs, fieldArg)
+							}
 						}
 					}
 				}

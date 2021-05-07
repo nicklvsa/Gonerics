@@ -1,65 +1,5 @@
 {
- "Funcs": [
-  {
-   "template_args": [
-    {
-     "position": 0,
-     "name": "Something"
-    }
-   ],
-   "return_args": [
-    {
-     "position": 0,
-     "name": null,
-     "type": "",
-     "is_built_in": true
-    }
-   ],
-   "func_args": [
-    {
-     "position": 0,
-     "name": "data",
-     "type": "Something",
-     "is_built_in": false
-    }
-   ],
-   "name": "Printer",
-   "body": "\tfmt.Printf(\"%+v\\n\", data)"
-  },
-  {
-   "template_args": [
-    {
-     "position": 0,
-     "name": "A"
-    }
-   ],
-   "return_args": [
-    {
-     "position": 0,
-     "name": null,
-     "type": "A",
-     "is_built_in": false
-    }
-   ],
-   "func_args": [
-    {
-     "position": 0,
-     "name": "x",
-     "type": "A",
-     "is_built_in": false
-    },
-    {
-     "position": 0,
-     "name": "y",
-     "type": "A",
-     "is_built_in": false
-    }
-   ],
-   "name": "myMax",
-   "body": "\tif x \u003e y {\n\t\treturn x\n\t}\n\n\treturn y"
-  }
- ],
- "Structs": [
+ "funcs": [
   {
    "template_args": [
     {
@@ -67,11 +7,63 @@
      "name": "T"
     }
    ],
+   "return_args": [
+    {
+     "position": 0,
+     "name": null,
+     "type": "T",
+     "is_built_in": false
+    }
+   ],
+   "func_args": [
+    {
+     "position": 0,
+     "name": "num0",
+     "type": "T",
+     "is_built_in": false
+    },
+    {
+     "position": 0,
+     "name": "num1",
+     "type": "T",
+     "is_built_in": false
+    }
+   ],
+   "name": "myMax",
+   "body": "\tif num0 \u003e num1 {\n\t\treturn num0\n\t}\n\n\treturn num1"
+  }
+ ],
+ "structs": [
+  {
+   "template_args": [
+    {
+     "position": 0,
+     "name": "T"
+    },
+    {
+     "position": 1,
+     "name": "X"
+    }
+   ],
    "field_args": [
     {
      "position": 0,
-     "name": "FirstName",
-     "type": "string\n\tLastName",
+     "name": "Name",
+     "type": "string",
+     "tags": null,
+     "is_built_in": true
+    },
+    {
+     "position": 1,
+     "name": "Cool",
+     "type": "int",
+     "tags": "`json:\"cool\" gorm:\"type:numeric\"`",
+     "is_built_in": true
+    },
+    {
+     "position": 2,
+     "name": "Another",
+     "type": "X",
      "tags": null,
      "is_built_in": false
     }

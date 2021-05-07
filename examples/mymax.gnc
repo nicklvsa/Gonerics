@@ -4,33 +4,26 @@ import (
 	"fmt"
 )
 
-@template(type T)
+@template(type T, type X)
 type Example struct {
-	FirstName string
-	LastName string `json:"last_name"`
-	SomeObj T
+	Name string
+	Cool int `json:"cool" gorm:"type:numeric"`
+	Another X
 }
 
-@template(type Something)
-func Printer(data Something) {
-	fmt.Printf("%+v\n", data)
-}
-
-@template(type A)
-func myMax(x A, y A) A {
-	if x > y {
-		return x
+@template(type T)
+func myMax(num0 T, num1 T) T {
+	if num0 > num1 {
+		return num0
 	}
 
-	return y
+	return num1
 }
 
 func main() {
-	intVal := myMax<int>(10, 20)
-	floatVal := myMax<float64>(3.14, 5.64)
+	largestInt := myMax<int>(20, 60)
+	fmt.Printf("%+v\n", largestInt)
 
-	Printer<string>("Hello World")
-
-	fmt.Printf("%+v\n", intVal)
-	fmt.Printf("%+v\n", floatVal)
+	largestFloat := myMax<float64>(3.14, 8.25)
+	fmt.Printf("%+v\n", largestFloat)
 }

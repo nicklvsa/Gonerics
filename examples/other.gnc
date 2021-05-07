@@ -1,0 +1,36 @@
+package main
+
+import (
+	"fmt"
+)
+
+@template(type T)
+type Example struct {
+	FirstName string
+	LastName string `json:"last_name"`
+	SomeObj T
+}
+
+@template(type Something)
+func Printer(data Something) {
+	fmt.Printf("%+v\n", data)
+}
+
+@template(type A)
+func myMax(x A, y A) A {
+	if x > y {
+		return x
+	}
+
+	return y
+}
+
+func main() {
+	intVal := myMax<int>(10, 20)
+	floatVal := myMax<float64>(3.14, 5.64)
+
+	Printer<string>("Hello World")
+
+	fmt.Printf("%+v\n", intVal)
+	fmt.Printf("%+v\n", floatVal)
+}

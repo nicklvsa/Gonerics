@@ -13,4 +13,5 @@ const (
 // struct pattern matches
 const (
 	TEMPLATE_STRUCT = `@template([A-z0-9\(*\)\s].+)\ntype\s*([A-z0-9\s]+)?\s*[\(\)a-zA-Z]?.*[a-zA-Z0-9]\sstruct\s?\{(?:[^}{]+|\{(?:[^}{]+|\{[^}{]*\})*\})*\}`
+	STRUCT_FIELD    = "\\`([A-z0-9\\(*\\)\\s].+)\\`"
 )
