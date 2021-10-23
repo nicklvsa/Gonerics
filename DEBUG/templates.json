@@ -4,45 +4,47 @@
    "template_args": [
     {
      "position": 0,
-     "name": "T"
+     "name": "N"
+    },
+    {
+     "position": 1,
+     "name": "M"
     }
    ],
    "return_args": [
     {
+     "position": 1,
+     "name": null,
+     "type": "M",
+     "is_built_in": false
+    },
+    {
      "position": 0,
      "name": null,
-     "type": "T",
+     "type": "N",
      "is_built_in": false
     }
    ],
    "func_args": [
     {
      "position": 0,
-     "name": "num0",
-     "type": "T",
+     "name": "num",
+     "type": "N",
      "is_built_in": false
     },
     {
      "position": 0,
-     "name": "num1",
-     "type": "T",
+     "name": "age",
+     "type": "N",
      "is_built_in": false
     }
    ],
-   "name": "myMax",
-   "body": "\tif num0 \u003e num1 {\n\t\treturn num0\n\t}\n\n\treturn num1"
+   "name": "cool",
+   "body": "\treturn \"hello world\", age\r"
   }
  ],
- "structs": [
-  {
-   "template_args": [
-    {
-     "position": 0,
-     "name": "T"
-    },
-    {
-     "position": 1,
-     "name": "X"
+ "structs": null
+}X"
     }
    ],
    "field_args": [
@@ -57,7 +59,7 @@
      "position": 1,
      "name": "Cool",
      "type": "int",
-     "tags": "`json:\"cool\" gorm:\"type:numeric\"`",
+     "tags": "`json:\"cool\"`",
      "is_built_in": true
     },
     {

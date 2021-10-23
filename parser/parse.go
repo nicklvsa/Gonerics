@@ -7,9 +7,21 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"regexp"
 	"strings"
+	"sync"
 )
+
+func ParallelParse(inputPath string, outputPath string, wg *sync.WaitGroup) {
+	defer wg.Done()
+
+	fmt.Printf("Processing %s -> %s\n", inputPath, outputPath)
+
+	if err := Parse(inputPath, outputPath, false); err != nil {
+		panic(err)
+	}
+}
 
 func Parse(inputFile, outputFile string, execute bool) error {
 	test, err := os.Stat(inputFile)
@@ -18,14 +30,32 @@ func Parse(inputFile, outputFile string, execute bool) error {
 	}
 
 	if test.IsDir() {
+		parsedDirName := "parsed"
+
 		files, err := ioutil.ReadDir(inputFile)
 		if err != nil {
 			return err
 		}
 
-		for _, f := range files {
-			Parse(fmt.Sprintf("%s/%s", inputFile, f.Name()), fmt.Sprintf("%s/%s/%s%s", inputFile, outputFile, f.Name(), ".go"), execute)
+		wd, err := os.Getwd()
+		if err != nil {
+			return err
 		}
+
+		outputPath := filepath.Join(wd, inputFile, parsedDirName)
+		os.Mkdir(outputPath, 0755)
+
+		group := sync.WaitGroup{}
+		group.Add(len(files))
+
+		for _, f := range files {
+			input := wd + filepath.FromSlash(fmt.Sprintf("/%s/%s", inputFile, f.Name()))
+			output := wd + filepath.FromSlash(fmt.Sprintf("/%s/%s/%s.go", inputFile, parsedDirName, f.Name()))
+
+			go ParallelParse(input, output, &group)
+		}
+
+		group.Wait()
 
 		return nil
 	}

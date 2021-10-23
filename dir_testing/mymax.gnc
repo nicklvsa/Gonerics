@@ -1,0 +1,29 @@
+package main
+
+import (
+	"fmt"
+)
+
+@template(type T, type X)
+type Example struct {
+	Name string
+	Cool int `json:"cool"`
+	Another X `json:"another"`
+}
+
+@template(type T)
+func myMax(num0 T, num1 T) T {
+	if num0 > num1 {
+		return num0
+	}
+
+	return num1
+}
+
+func main() {
+	largestInt := myMax<int>(20, 60)
+	fmt.Printf("%+v\n", largestInt)
+
+	largestFloat := myMax<float64>(3.14, 8.25)
+	fmt.Printf("%+v\n", largestFloat)
+}

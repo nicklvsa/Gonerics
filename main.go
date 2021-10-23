@@ -12,8 +12,8 @@ func main() {
 	var output string
 	var execute bool
 
-	flag.StringVar(&input, "in", "", "-in <input.go>")
-	flag.StringVar(&output, "out", "", "-out <output.go>")
+	flag.StringVar(&input, "in", "", "-in <input.go> or <dir>")
+	flag.StringVar(&output, "out", "", "-out <output.go> or <dir>")
 	flag.BoolVar(&execute, "run", false, "-run")
 
 	flag.Parse()
